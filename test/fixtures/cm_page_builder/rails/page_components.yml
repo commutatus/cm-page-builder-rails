@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  page: one
+  content: MyString
+  position: 1
+  component_type: MyString
+  id: MyString
+
+two:
+  page: two
+  content: MyString
+  position: 1
+  component_type: MyString
+  id: MyString

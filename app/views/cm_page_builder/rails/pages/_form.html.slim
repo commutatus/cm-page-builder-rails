@@ -1,0 +1,14 @@
+= form_for @page do |f|
+  - if @page.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@page.errors.count, "error")} prohibited this page from being saved:"
+      ul
+        - @page.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    input type='hidden' id="content-editor" name="page[components]"
+    - components = @page.page_components.select(:id, :component_type, :position, :content).map { |component| component.as_json.transform_keys! {|key| key.camelize(:lower)} }
+    = react_component("cm_content_manager/Content", {input: "content-editor", components: components})
+
+  .actions = f.submit
