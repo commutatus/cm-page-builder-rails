@@ -21,6 +21,10 @@ Or install it yourself as:
 $ gem install cm_page_builder-rails
 ```
 
+### Setting up CORS for aws
+Do this or the direct upload capabilities won't work
+https://keithpblog.org/post/active-storage-on-amazon-s3/
+
 ## Contributing
 Contribution directions go here.
 

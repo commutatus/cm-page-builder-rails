@@ -8,7 +8,7 @@
 
   .field
     input type='hidden' id="content-editor" name="page[components]"
-    - components = @page.page_components.select(:id, :component_type, :position, :content).map { |component| component.as_json.transform_keys! {|key| key.camelize(:lower)} }
+    - components = @page.get_components
     = react_component("cm_content_manager/Content", {input: "content-editor", components: components})
 
   .actions = f.submit
