@@ -1,13 +1,14 @@
 # CmPageBuilder::Rails
-Short description and motivation.
+This gem's purpose is to allow easy integration between the Commutatus react package cm-page-builder and any rails applications created by
 
 ## Usage
-How to use my plugin.
+To activate this module, add `include CmPageBuilder::Rails::HasCmContent` on top of any model file that should have an associated rich text field.
 
 ## Installation
-Add this line to your application's Gemfile:
+
 
 ```ruby
+gem 'react-rails', '~> 2.6.0'
 gem 'cm_page_builder-rails'
 ```
 
@@ -16,10 +17,11 @@ And then execute:
 $ bundle
 ```
 
-Or install it yourself as:
-```bash
-$ gem install cm_page_builder-rails
-```
+Follow all react-rails installation instructions
+
+Then run `rails cm_page_builder_rails:install:migrations`
+
+In `config/routes.rb`, mount the endpoint with the line `mount CmPageBuilder::Rails::Engine => "/cm_page_builder"`
 
 ### Setting up CORS for aws
 Do this or the direct upload capabilities won't work

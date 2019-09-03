@@ -6,10 +6,13 @@ module CmPageBuilder::Rails
     accepts_nested_attributes_for :page_components, allow_destroy: true
 
     def get_components
-      self.page_components.select(:id, :component_type, :position, :content).map do |component|
+      self.page_components.with_attached_component_attachment.select(:id, :uuid, :component_type, :position, :content).map do |component|
         json_component = component.as_json.transform_keys! {|key| key.camelize(:lower)}
         attachment = component.component_attachment.attachment
+        pp component.component_attachment
         pp attachment
+        pp "======"
+        json_component["id"] = component[:uuid]
         json_component["component_attachment"] = if attachment
            {
             filename: attachment.filename.to_s,
@@ -23,18 +26,18 @@ module CmPageBuilder::Rails
     def save_content(component_json)
       components = JSON.parse component_json
       deleted_components = self.page_components.where.not(
-        id: components.map {|c| c["id"] } )
+        uuid: components.map {|c| c["id"] } )
       deleted_components.delete_all
       components.each do |component|
-        page_component = self.page_components.find_or_initialize_by(id: component["id"])
-        page_component.update!(
-            content: component["content"],
-            position: component["position"],
-            component_type: component["componentType"]
-          )
+        page_component = self.page_components.find_or_initialize_by(uuid: component["id"])
         signed_id = component.dig("component_attachment", "signed_id")
-        page_component.component_attachment = signed_id if signed_id
-        page_component.save!
+        component_data = {
+          content: component["content"],
+          position: component["position"],
+          component_type: component["componentType"]
+        }
+        component_data[:component_attachment] = signed_id if signed_id
+        page_component.update!(component_data)
       end
 
     end
