@@ -9,14 +9,12 @@ module CmPageBuilder::Rails
       self.page_components.with_attached_component_attachment.select(:id, :uuid, :component_type, :position, :content).map do |component|
         json_component = component.as_json.transform_keys! {|key| key.camelize(:lower)}
         attachment = component.component_attachment.attachment
-        pp component.component_attachment
-        pp attachment
-        pp "======"
         json_component["id"] = component[:uuid]
         json_component["component_attachment"] = if attachment
            {
             filename: attachment.filename.to_s,
-            url: attachment.service_url
+            url: attachment.service_url,
+            dimensions: attachment.blob.metadata
           }
         end
         json_component
