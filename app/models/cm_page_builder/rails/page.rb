@@ -11,11 +11,18 @@ module CmPageBuilder::Rails
         attachment = component.component_attachment.attachment
         json_component["id"] = component[:uuid]
         json_component["component_attachment"] = if attachment
-           {
+          attachment_data = {
             filename: attachment.filename.to_s,
-            url: attachment.service_url,
-            dimensions: attachment.blob.metadata
+            url: attachment.service_url
           }
+          dimensions = attachment.blob.metadata
+          dimensions['orientation'] = if dimensions['width'] > dimensions['height']
+            'landscape'
+          else
+            'portrait'
+          end
+          attachment_data["dimensions"] = dimensions
+          attachment_data
         end
         json_component
       end
