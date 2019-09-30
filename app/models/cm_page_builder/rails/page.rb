@@ -21,6 +21,14 @@ module CmPageBuilder::Rails
       end
     end
 
+    def duplicate
+      dupl = self.dup
+      dupl.page_components = self.page_components.map do |pc|
+        pc.duplicate
+      end
+      dupl
+    end
+
     def save_content(component_json)
       components = JSON.parse component_json
       deleted_components = self.page_components.where.not(
