@@ -5,6 +5,7 @@ module CmPageBuilder
 
       config.generators do |g|
         g.template_engine :slim
+        g.test_framework :rspec
       end
       # This part of the code makes sure that the main application's helper
       # methods can be accessed from the engine
