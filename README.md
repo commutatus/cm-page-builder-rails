@@ -29,7 +29,7 @@ https://keithpblog.org/post/active-storage-on-amazon-s3/
 
 ### Building the gem
 `gem build cm_page_builder-rails.gemspec`
-`gem push <generated gem name>`
+`gem push cm_page_builder-rails-0.1.x.gem`
 
 ## Contributing
 Contribution directions go here.
