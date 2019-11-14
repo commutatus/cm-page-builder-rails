@@ -1,0 +1,10 @@
+= form_for @test_container do |f|
+  - if @test_container.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@test_container.errors.count, "error")} prohibited this test container from being saved:"
+      ul
+        - @test_container.errors.full_messages.each do |message|
+          li = message
+
+  .field
+  .actions = f.submit

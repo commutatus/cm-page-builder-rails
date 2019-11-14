@@ -1,0 +1,21 @@
+h1 Listing test_containers
+
+table
+  thead
+    tr
+      th Test container
+      th
+      th
+      th
+
+  tbody
+    - @test_containers.each do |test_container|
+      tr
+        td = test_container
+        td = link_to 'Show', test_container
+        td = link_to 'Edit', edit_test_container_path(test_container)
+        td = link_to 'Destroy', test_container, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Test Container', new_test_container_path
