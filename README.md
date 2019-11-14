@@ -27,6 +27,10 @@ In `config/routes.rb`, mount the endpoint with the line `mount CmPageBuilder::Ra
 Do this or the direct upload capabilities won't work
 https://keithpblog.org/post/active-storage-on-amazon-s3/
 
+### Building the gem
+`gem build cm_page_builder-rails.gemspec`
+`gem push <generated gem name>`
+
 ## Contributing
 Contribution directions go here.
 
