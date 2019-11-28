@@ -1,3 +1,5 @@
+[![Gem Version](https://badge.fury.io/rb/cm_page_builder-rails.svg)](https://badge.fury.io/rb/cm_page_builder-rails)
+
 # CmPageBuilder::Rails
 This gem's purpose is to allow easy integration between the Commutatus react package cm-page-builder and any rails applications created by
 
