@@ -8,7 +8,6 @@
 
   .field
     input type='hidden' id="content-editor" name="page[components]"
-    - components = @page.get_components
-    = react_component("cm_content_manager/Content", {input: "content-editor", components: components})
+    = react_component("cm_content_manager/Content", {input: "content-editor", components: @page.components})
 
   .actions = f.submit

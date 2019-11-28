@@ -5,11 +5,11 @@ module CmPageBuilder::Rails
 
     accepts_nested_attributes_for :page_components, allow_destroy: true
 
-    def get_components
+    def components(**args)
       page_components.with_attached_component_attachment.select(:id, :uuid, :component_type, :position, :content).map do |component|
-        json_component = component.as_json.transform_keys! {|key| key.camelize(:lower)}
+        json_component = component.as_json.transform_keys! { |key| key.camelize(:lower) }
         json_component["id"] = component[:uuid]
-        json_component["component_attachment"] = _get_attachment(component)
+        json_component["component_attachment"] = _get_attachment(component, args[:max_width])
         json_component
       end
     end
@@ -33,37 +33,40 @@ module CmPageBuilder::Rails
       end
     end
 
-    def _get_attachment(component)
-      attachment = component.component_attachment.attachment
-      if attachment
+    private
+
+      def _get_attachment(component, max_width=nil)
+        attachment = component.component_attachment.attachment
+        return unless attachment
+
         attachment_data = {
           filename: attachment.filename.to_s,
           url: attachment.service_url
         }
-        dimensions = attachment.blob.metadata
-        if dimensions['width']
+        if attachment.blob.variable?
+          dimensions = attachment.blob.metadata
           dimensions['orientation'] =
             if dimensions['width'] > dimensions['height']
               'landscape'
             else
               'portrait'
             end
-          attachment_data["dimensions"] = dimensions
+          attachment_data[:dimensions] = dimensions
+          attachment_data[:url] = attachment.variant(resize_to_limit: [max_width, nil]).processed.service_url if max_width
         end
         attachment_data
       end
-    end
 
-    def _save_component(component)
-      page_component = page_components.find_or_initialize_by(uuid: component["id"])
-      signed_id = component.dig("component_attachment", "signed_id")
-      component_data = {
-        content: component["content"],
-        position: component["position"],
-        component_type: component["componentType"]
-      }
-      component_data[:component_attachment] = signed_id if signed_id
-      page_component.update!(component_data)
-    end
+      def _save_component(component)
+        page_component = page_components.find_or_initialize_by(uuid: component["id"])
+        signed_id = component.dig("component_attachment", "signed_id")
+        component_data = {
+          content: component["content"],
+          position: component["position"],
+          component_type: component["componentType"]
+        }
+        component_data[:component_attachment] = signed_id if signed_id
+        page_component.update!(component_data)
+      end
   end
 end
