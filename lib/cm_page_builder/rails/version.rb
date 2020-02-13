@@ -1,5 +1,5 @@
 module CmPageBuilder
   module Rails
-    VERSION = '0.1.10'
+    VERSION = '0.1.11'
   end
 end
