@@ -39,12 +39,14 @@ module CmPageBuilder::Rails
         attachment = component.component_attachment.attachment
         return unless attachment
 
+        blob = attachment.blob
         attachment_data = {
           filename: attachment.filename.to_s,
-          url: attachment.service_url
+          filesize: blob.byte_size,
+          url: Rails.application.routes.url_helpers.rails_blob_path(attachment, only_path: true)
         }
-        if attachment.blob.variable?
-          dimensions = attachment.blob.metadata
+        if blob.variable?
+          dimensions = blob.metadata
           dimensions['orientation'] =
             if dimensions['width'] > dimensions['height']
               'landscape'
