@@ -8,6 +8,6 @@
 
   .field
     input type='hidden' id="content-editor" name="page[components]"
-    = react_component("cm_content_manager/Content", {input: "content-editor", components: @page.components})
+    = react_component("cm_content_manager/Content", { input: "content-editor", components: @page.components, assetBaseUrl: ActiveStorage::Blob.service.bucket.url})
 
   .actions = f.submit
