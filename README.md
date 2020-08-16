@@ -7,6 +7,7 @@ This gem's purpose is to allow easy integration between the Commutatus javascrip
 
 * Rails 6+
 * Webpacker must be enabled in the project
+* S3 as the image backend storage
 
 
 ## Initial setup:
@@ -23,17 +24,24 @@ This gem's purpose is to allow easy integration between the Commutatus javascrip
 * Follow all react-rails installation instructions (https://github.com/reactjs/react-rails)
 *Important:* ensure that the `hello_world` example successfully works
 
-* Add the javascript package with `yarn add cm-page-builder@1.2.69`
+* Install the javascript packages with:
+  ```bash
+  yarn add cm-page-builder@1.3.0 -E
+  yarn add babel-runtime@^6.26.0
+  ```
+  (the emoji-mart package, a dependency of cm-page-builder, sometimes bugs out during the webpack build process without the babel-runtime)
 
 * Run `rails cm_page_builder_rails:install:migrations`
 
-* In `config/routes.rb`, mount the endpoint with the line `mount CmPageBuilder::Rails::Engine => "/cm_page_builder"`
+* Run `rails generate cm_page_builder:rails:install` to install the JSX component. This assumes your webpack folder is inside `app/javascripts`
 
-* Initialize the layout
+* In `config/routes.rb`, mount the endpoint with the line `mount CmPageBuilder::Rails::Engine => "/cm_page_builder"`
 
 ## Usage
 This package comes with a concern, `CmPageBuilder::Rails::HasCmContent` `include CmPageBuilder::Rails::HasCmContent`
-To activate this module, add `include CmPageBuilder::Rails::HasCmContent` on top of any model file that should have an associated rich text field.
+To activate this module, add `include CmPageBuilder::Rails::HasCmContent` on top of any model file that should have an associated page builder record.
+
+The page builder record will be accessible from the model as *page* (`@model.page`). The show path is accessible through the route `cm_page_builder_rails.page_path(@page)`, and the edit path through the route `cm_page_builder_rails.edit_page_path(@page)`
 
 ### Setting up CORS for aws
 Do this or the direct upload capabilities won't work
