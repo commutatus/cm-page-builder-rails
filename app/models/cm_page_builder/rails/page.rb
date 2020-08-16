@@ -43,7 +43,7 @@ module CmPageBuilder::Rails
         attachment_data = {
           filename: attachment.filename.to_s,
           filesize: blob.byte_size,
-          url: Rails.application.routes.url_helpers.rails_blob_path(attachment, only_path: true)
+          url: attachment.service_url
         }
         if blob.variable?
           dimensions = blob.metadata
