@@ -26,16 +26,21 @@ class Content extends React.Component {
            useDirectStorageUpload={true}
            assetBaseUrl={ this.props.assetBaseUrl }
            meta={ {id: "debug"} }
-           status="Edit"
+           status={ this.props.status }
           />
       </React.Fragment>
     );
   }
 }
 
+Content.defaultProps = {
+  status: 'Edit'
+};
+
 Content.propTypes = {
   input: PropTypes.string,
   components: PropTypes.array,
-  assetBaseUrl: PropTypes.string
+  assetBaseUrl: PropTypes.string,
+  status: PropTypes.string
 };
 export default Content
