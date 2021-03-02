@@ -43,6 +43,11 @@ To activate this module, add `include CmPageBuilder::Rails::HasCmContent` on top
 
 The page builder record will be accessible from the model as *page* (`@model.page`). The show path is accessible through the route `cm_page_builder_rails.page_path(@page)`, and the edit path through the route `cm_page_builder_rails.edit_page_path(@page)`
 
+To make the fragment read-only in the form pass the value in `status` prop as `Read`. Example,
+```ruby
+  = react_component('cm_content_manager/Content', { input: 'content-editor', components: @page.components, assetBaseUrl: ActiveStorage::Blob.service.bucket.url, status: 'Read'})
+```
+
 ### Setting up CORS for aws
 Do this or the direct upload capabilities won't work
 https://keithpblog.org/post/active-storage-on-amazon-s3/
