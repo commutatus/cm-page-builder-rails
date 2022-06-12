@@ -48,7 +48,9 @@ module CmPageBuilder::Rails
         if blob.variable?
           dimensions = blob.metadata
           dimensions['orientation'] =
-            if dimensions['width'] > dimensions['height']
+            if dimensions['width'].nil? || dimensions['height'].nil?
+              'portrait'
+            elsif dimensions['width'] > dimensions['height']
               'landscape'
             else
               'portrait'
