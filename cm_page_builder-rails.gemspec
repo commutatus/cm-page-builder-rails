@@ -7,8 +7,8 @@ require "cm_page_builder/rails/version"
 Gem::Specification.new do |spec|
   spec.name        = "cm_page_builder-rails"
   spec.version     = CmPageBuilder::Rails::VERSION
-  spec.authors     = ["Camilo Ernesto Forero Junco"]
-  spec.email       = ["camilo@commutatus.com"]
+  spec.authors     = ["AdityaTiwari2102"]
+  spec.email       = ["taditya.tiwari007@gmail.com"]
   spec.homepage    = "https://commutatus.com"
   spec.summary     = "Summary of CmPageBuilder::Rails."
   spec.description = "Description of CmPageBuilder::Rails."
