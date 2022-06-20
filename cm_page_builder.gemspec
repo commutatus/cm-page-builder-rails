@@ -5,10 +5,10 @@ require "cm_page_builder/rails/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
-  spec.name        = "cm_page_builder-rails"
+  spec.name        = "cm_page_builder"
   spec.version     = CmPageBuilder::Rails::VERSION
-  spec.authors     = ["Camilo Ernesto Forero Junco"]
-  spec.email       = ["camilo@commutatus.com"]
+  spec.authors     = ["AdityaTiwari2102"]
+  spec.email       = ["taditya.tiwari007@gmail.com"]
   spec.homepage    = "https://commutatus.com"
   spec.summary     = "Summary of CmPageBuilder::Rails."
   spec.description = "Description of CmPageBuilder::Rails."
@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   spec.test_files = Dir["spec/**/*"]
 
-  spec.add_dependency "rails", "~> 6.0.0"
+  spec.add_dependency 'rails', '>=6.0'
   spec.add_dependency "slim-rails", "~> 3.2.0"
 
 
