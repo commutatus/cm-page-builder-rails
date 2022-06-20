@@ -5,7 +5,7 @@ require "cm_page_builder/rails/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
-  spec.name        = "cm_page_builder-rails"
+  spec.name        = "cm_page_builder"
   spec.version     = CmPageBuilder::Rails::VERSION
   spec.authors     = ["AdityaTiwari2102"]
   spec.email       = ["taditya.tiwari007@gmail.com"]
